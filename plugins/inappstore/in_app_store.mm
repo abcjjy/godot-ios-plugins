@@ -283,6 +283,11 @@ InAppStore *InAppStore::instance = NULL;
 				receipt_ret["sdk"] = sdk_version;
 				ret["receipt"] = receipt_ret;
 
+                if (transaction.originalTransaction)
+                {
+                    ret["original_transaction_id"] = String::utf8(transaction.originalTransaction.transactionIdentifier.UTF8String);
+                }
+
 				if (self.shouldAutoFinishTransactions) {
 					[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 				} else {
@@ -323,6 +328,12 @@ InAppStore *InAppStore::instance = NULL;
 				receipt_ret["receipt"] = String::utf8(receipt_to_send != nil ? [receipt_to_send UTF8String] : "");
 				receipt_ret["sdk"] = sdk_version;
 				ret["receipt"] = receipt_ret;
+
+                if (transaction.originalTransaction)
+                {
+                    ret["original_transaction_id"] = String::utf8(transaction.originalTransaction.transactionIdentifier.UTF8String);
+                }
+
 				[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 			} break;
 			case SKPaymentTransactionStatePurchasing: {

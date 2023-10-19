@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+mkdir -p bin
+rm -rdf bin/*
+
 # Compile static libraries
 
 # ARM64 Device
